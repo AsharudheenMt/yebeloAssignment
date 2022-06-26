@@ -10,7 +10,7 @@ public interface CategoryService {
 
 	List<Category> findAll();
 
-	int findNewValue(int value);
+	int findNewValue(int oldValue);
 
 	public void saveOrUpdate(Category category);
 }

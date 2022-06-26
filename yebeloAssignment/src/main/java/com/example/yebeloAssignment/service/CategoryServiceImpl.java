@@ -1,5 +1,6 @@
 package com.example.yebeloAssignment.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,25 +40,36 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category getCategoryByCategoryCode(int categoryCode) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Category category = categoryRepository.findByCategoryCode(categoryCode);
+		return category;
 	}
 
 	@Override
 	public List<Category> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Category> list = new ArrayList<>();
+		categoryRepository.findAll().forEach(category -> list.add(category));
+		return list;
 	}
 
 	@Override
-	public int findNewValue(int value) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int findNewValue(int oldValue) {
+		// if the fetched value's sum of digits is 1 we use the next value.
+		if (digSum(oldValue) == 1) {
+			oldValue++;
+		}
+
+		// smallest next number is calculated
+		for (int i = oldValue; true; i++, oldValue++) {
+			if (digSum(i) == 1) {
+				return oldValue;
+			}
+		}
 	}
 
 	@Override
 	public void saveOrUpdate(Category category) {
-		// TODO Auto-generated method stub
+		categoryRepository.save(category);
 
 	}
 
